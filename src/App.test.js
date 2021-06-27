@@ -26,10 +26,9 @@ describe('Should render page elements and mock API calls', () => {
     userEvent.click(
       screen.getByRole('button', { name: 'Get user'})
     )
-
     await waitFor(() => expect(axiosMock).toHaveBeenCalledTimes(1));
-
-    screen.logTestingPlaygroundURL();
+    screen.debug();
+    // screen.logTestingPlaygroundURL();
   
     // test 'Learn React' link
     screen.getByRole('link', { name: 'Learn React'});
