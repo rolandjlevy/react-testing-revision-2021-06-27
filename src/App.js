@@ -1,14 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
 
+import React, { useState } from 'react';
+import axios from 'axios';
+
 function App() {
+  const [toggleState, setToggleState] = useState(false);
+  const [user, getUser] = useState(null);
+  const handleClick = () => setToggleState(!toggleState);
+
+  const fetchUser = async () => {
+    const url = 'https://jsonplaceholder.typicode.com/users/1';
+    const { data } = await axios.get(url);
+    getUser(data);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+      <main>
+        
+      <section className="flex row align-center m-b-10">
+          <button className="btn m-5" onClick={handleClick}>
+            Toggle
+          </button>
+          {toggleState && (<h1 className="m-5">🚀</h1>)}
+        </section>
+
+        <section className="flex row align-center m-b-10">
+          <button className="btn m-5" onClick={fetchUser}>
+            Get user
+          </button>
+          {user ? (<code><h6 className="m-5">{JSON.stringify(user)}</h6></code>) : '' }
+        </section>
+
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -17,7 +39,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </main>
     </div>
   );
 }
